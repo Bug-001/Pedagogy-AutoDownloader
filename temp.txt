@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link rel="icon" type="image/png" href="/public/assets/images/server/favicon.ico">
+<meta name="description" content="">
+<title>教学立方</title>
+<link href="/public/htmls/All/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/public/htmls/All/css/style.min.css" rel="stylesheet">
+<script src="https://teaching.applysquare.com/public/resource/js/2094972737/25f6fac5be8ab8f443dc552ccd22b66d.js"></script>
+
+
+
+
+
+<style>
+body {
+background-color: #fff;
+}
+.error404-wrap {
+position: absolute;
+top: 50%;
+left: 50%;
+margin-top: -221px;
+margin-left: -258px;
+}
+.error404 {
+width: 516px;
+height: 367px;
+background: url("/public/assets/images/all/404.gif") no-repeat;
+margin-bottom: 40px;
+}
+</style>
+</head>
+
+<body>
+<div class="error404-wrap" ms-controller="error">
+<div class="error404"></div>
+<div class="text-center"><a href="/Home/User/login" class="btn btn-primary big-5words">返回首页</a></div>
+</div>
+<script type="text/javascript">
+var error = avalon.define({
+$id: 'error',
+logOut: function(){
+$.get("/Api/User/logout/token" + jCommon.getLocalStorge('token'), {}, function(res) {
+if (res.status == "20032") {
+jCommon.removeLocalStorge();
+}
+})
+},
+indexClick: function(){
+window.location.href = '/Home/User/login';
+if(jCommon.empty(jCommon.getLocalStorge('token'))){
+jCommon.removeLocalStorge();
+window.location.href = '/Home/User/login';
+}else{
+var timestamp = (Date.parse(new Date())-jCommon.getLocalStorge("current_login_token"))/1000;
+if(jCommon.empty(jCommon.getLocalStorge('token_duration'))){
+jCommon.removeLocalStorge();
+window.location.href = '/Home/User/login';
+}
+if(timestamp >= jCommon.getLocalStorge("token_duration")){
+jCommon.removeLocalStorge();
+window.location.href = '/Home/User/login';
+}
+// if(jCommon.getLocalStorge('usertype') == 1){
+// window.location.href = "/S/Index/index";
+// }else{
+// window.location.href = "/T/Index/index";
+// }
+}
+}
+});
+
+avalon.ready(function() {
+error.logOut();
+});
+
+</script>
+</body>
+</html>
+<!--ke_li_fang_merge_resource_compressed-->
