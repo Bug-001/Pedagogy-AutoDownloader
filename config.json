@@ -1,0 +1,11 @@
+{
+	"username": "xxx",
+	"password": "xxx",
+	"headless_mode": false,
+    "download_all_ext": true,
+    "download_all_courses": false,
+	"ext_list": ["mp4"],
+    "ext_expel_list": ["pdf"],
+	"cid_list": [6586],
+	"sleep_time": 0.5
+}
